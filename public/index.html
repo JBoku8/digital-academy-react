@@ -117,8 +117,9 @@
 
       // rest operator
       const addNumbers = (first = 0, second = 0, ...rest) =>
-        rest.reduce((sum, next) => {
-          return sum + next;
+        rest.reduce((sum, currentNumber) => {
+          console.log("currentNumber", currentNumber);
+          return sum + currentNumber;
         }, first + second);
 
       console.log(addNumbers(1, 2));
