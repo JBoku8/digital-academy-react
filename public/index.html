@@ -37,19 +37,93 @@
     <div id="app"></div>
 
     <script>
-      const year = 2021;
-      let changeMe = 2021;
+      const hello = "Hello";
+      const world = "World";
 
-      // const/let - block scoped
-      // var = function scoped
+      /*
+        @ template string
+      */
+      const message = hello + " and one two " + world + "!";
+      // console.log(message);
 
-      function saySomething() {
-        console.log("Say Something");
-        const year = 2020;
-        return year;
-      }
+      // ""
+      // ''
+      // ``
 
-      const printLog = function () {};
+      const text = `${hello} and one two ${world}!`;
+
+      /* shorthand property names */
+      const sentence = {
+        text1: "demo",
+        hello,
+        world: world,
+        message,
+        text,
+      };
+      // console.log(sentence);
+
+      /**
+       *
+       * arrow functions
+       */
+      const getTen = () => 10;
+      const addTen = (n = 0) => n + getTen();
+      const multiply = (a, b) => a * b;
+
+      /**
+       *
+       * Destructuring
+       * parameter defaults
+       */
+      const print = ({ message = "default message", text }) => {
+        console.group("PRINT");
+        console.log("Text - ", text);
+        console.log("Message - ", message);
+        console.groupEnd();
+      };
+      // print(sentence);
+      const withoutMessage = {
+        text: "without message",
+      };
+
+      const withoutText = {
+        message: "without text",
+      };
+
+      // print(withoutMessage);
+
+      /**
+       *
+       * Rest/Spread
+       */
+      // spread operator
+      const combinedObject = {
+        ...sentence,
+        ...withoutMessage,
+        ...withoutText,
+      };
+      // console.log(combinedObject);
+
+      const arr = [1, 2, 3, 4, 5, 10, 20, 330];
+      console.log("length", arr.length);
+      // arr[2] = 1000;
+      // console.log(arr);
+
+      // for (let index = 0; index < arr.length; index++) {
+      //   console.log("index", index);
+      //   // debugger;
+      //   console.log("value", arr[index]);
+      // }
+
+      // rest operator
+      const addNumbers = (first = 0, second = 0, ...rest) =>
+        rest.reduce((sum, next) => {
+          return sum + next;
+        }, first + second);
+
+      console.log(addNumbers(1, 2));
+      console.log(addNumbers(1, 2, 3, 4));
+      console.log(addNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
     </script>
   </body>
 </html>
