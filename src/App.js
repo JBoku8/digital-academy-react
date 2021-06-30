@@ -1,7 +1,8 @@
 import React from "react";
 import Welcome from "./components/Welcome";
 import Greeting from "./components/Greeting";
-import { getTen, subtract } from "./utils/helpers";
+import Counter from "./components/Counter";
+import ClassComponent from "./components/ClassComponent";
 
 import "./App.css";
 
@@ -10,25 +11,14 @@ import "./App.css";
 
 // console.log(spanElement);
 
-const message = "Message Demo";
-
 function App() {
   return (
     <div className="container">
+      <ClassComponent />
       <Greeting />
       <Welcome title="ReactJs Rocks." />
-
-      {/* {Welcome({ title: "As function" })} */}
-
-      <h1 className="text-muted">{message}</h1>
-      <h2>
-        {getTen()}
-
-        {subtract(100, 80)}
-        <span> Span Element</span>
-      </h2>
-      <Welcome title="Hello Everybody." />
-      <Welcome title={message} text={message} />
+      <hr />
+      <Counter />
     </div>
   );
 }
