@@ -19,7 +19,7 @@ class ClassComponent extends React.Component {
       <div className="row">
         <h3>ClassComponent - {number}</h3>
         <button onClick={this.randomizeNumber} className="btn btn-primary">
-          randomizeNumber
+          randomizeNumber action
         </button>
       </div>
     );
