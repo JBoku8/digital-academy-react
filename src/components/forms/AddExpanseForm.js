@@ -1,60 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const AddExpanseForm = () => {
-  const [expanseName, setExpanseName] = useState("");
-  const [data, setData] = useState([]);
+export const AddExpanseForm = ({ onSubmit, editing }) => {
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState(0);
 
-  const onSubmit = (event) => {
+  useEffect(() => {
+    if (editing) {
+      setName(editing.name);
+      setAmount(editing.amount);
+    }
+  }, [editing]);
+
+  const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    const newExpanse = {
-      name: expanseName,
-      id: Date.now(),
+    // validation
+    let newExpanse = {
+      ...editing,
+      name,
+      amount: parseFloat(amount),
     };
 
-    // oldObject !== newObject
+    if (!editing) {
+      newExpanse = {
+        ...newExpanse,
+        id: Date.now(),
+      };
+    }
 
-    // const newData = [...data, newExpanse];
-
-    setData([...data, newExpanse]);
-    setExpanseName("");
+    onSubmit(newExpanse);
+    setName("");
+    setAmount(0);
   };
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <div className="input-group flex-nowrap">
+      <form onSubmit={onSubmitHandler}>
+        <div className="input-group flex-nowrap mb-2">
           <span className="input-group-text" id="addon-wrapping">
-            $
+            ✅ 🤑
           </span>
           <input
             type="text"
             className="form-control"
             placeholder="ხარჯის დასახელება"
-            value={expanseName}
+            value={name}
             onChange={({ target }) => {
-              setExpanseName(target.value);
+              setName(target.value);
+            }}
+            required
+          />
+        </div>
+        <div className="input-group flex-nowrap">
+          <span className="input-group-text" id="addon-wrapping">
+            💵 💵
+          </span>
+          <input
+            type="number"
+            className="form-control"
+            placeholder="თანხა"
+            value={amount}
+            onChange={({ target }) => {
+              setAmount(target.value);
             }}
             required
           />
         </div>
         <div className="mt-2">
           <button className="btn btn-primary" type="submit">
-            ხარჯის დამატება
+            ხარჯის {editing ? "რედაქტირება" : "დამატება"}
           </button>
         </div>
       </form>
-      <div className="shadow my-2">
-        <ul className="list-group">
-          {data.map((item) => {
-            return (
-              <li className="list-group-item" key={item.id}>
-                {item.name}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
     </>
   );
 };
