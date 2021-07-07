@@ -7,3 +7,17 @@ export const subtract = (a, b) => a - b;
 // kebab-case
 // PascalCase
 // camelCase
+
+export const generateExpanseInfo = (dataList) => {
+  const total = dataList.reduce((acc, element) => acc + element.amount, 0);
+  const amounts = dataList.map((el) => el.amount);
+
+  const response = {
+    min: Math.min(...amounts),
+    max: Math.max(...amounts),
+    total,
+    average: Math.round(total / dataList.length),
+  };
+
+  return response;
+};
