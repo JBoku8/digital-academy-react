@@ -3,6 +3,7 @@ import { AddExpanseForm } from "../../components/forms/AddExpanseForm";
 import { ExpanseList } from "../../components/lists/ExpanseList";
 import { getExpanses } from "../../service/expanseService";
 import { generateExpanseInfo } from "../../utils/helpers";
+import { logOut } from "../../service/auth";
 
 import "./expanse.css";
 
@@ -47,6 +48,10 @@ const Expanse = () => {
     setData(filtered);
   };
 
+  const onLogOutHandler = () => {
+    logOut();
+  };
+
   const renderInfoCard = () => {
     const info = generateExpanseInfo(data);
     return (
@@ -62,7 +67,7 @@ const Expanse = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
+      <div className="col-12 p-3">
         <h2
           className="expanseTitle"
           style={{
@@ -71,12 +76,19 @@ const Expanse = () => {
         >
           Expanse Manager App
         </h2>
+        <button
+          className="btn btn-danger"
+          type="button"
+          onClick={onLogOutHandler}
+        >
+          logOut
+        </button>
       </div>
 
-      <div className="col-8 shadow p-3 m-0">
+      <div className="col-8 shadow">
         <AddExpanseForm onSubmit={onSubmit} editing={editing} />
       </div>
-      <div className="col-4 p-3 m-0">{renderInfoCard()}</div>
+      <div className="col-4 p-3">{renderInfoCard()}</div>
       <div className="col-12 p-3">
         <ExpanseList
           data={data}
