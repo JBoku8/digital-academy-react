@@ -1,22 +1,36 @@
 import React from "react";
-
-// import Home from "./pages/home/Home";
+import { Switch, Route } from "react-router-dom";
+import Home from "./pages/home/Home";
 import Expanse from "./pages/expanse/Expanse";
-import { Login } from "./pages/auth";
-import { checkValue } from "./service/localStorage";
-import { AUTH_TOKEN } from "./service/auth.constants";
+import { Login, Register } from "./pages/auth";
+import { NotFound } from "./pages/404";
+import { Layout } from "./components/Layout";
 
 import "./App.css";
 
 function App() {
-  const isAuthorized = checkValue(AUTH_TOKEN);
-
   return (
-    <div className="container">
-      {/* <Home /> */}
-      {isAuthorized && <Expanse />}
-      {!isAuthorized && <Login />}
-    </div>
+    <Layout>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+
+        <Route path="/register">
+          <Register />
+        </Route>
+
+        <Route path="/expanses">
+          <Expanse />
+        </Route>
+
+        <Route path="/" exact>
+          <Home />
+        </Route>
+
+        <NotFound />
+      </Switch>
+    </Layout>
   );
 }
 

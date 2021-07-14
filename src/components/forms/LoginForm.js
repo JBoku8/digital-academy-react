@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 import { login } from "../../service/auth";
 import { AUTH_TOKEN } from "../../service/auth.constants";
@@ -7,12 +8,13 @@ import { setValue } from "../../service/localStorage";
 
 export const LoginForm = ({ title, maxAttempts }) => {
   const { register, handleSubmit } = useForm();
+  const history = useHistory();
 
   const onSubmit = async (data) => {
     const result = await login(data);
     if (result) {
       setValue(AUTH_TOKEN, result.token);
-      window.location.reload();
+      history.replace("/expanses");
     }
   };
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 import { AddExpanseForm } from "../../components/forms/AddExpanseForm";
 import { ExpanseList } from "../../components/lists/ExpanseList";
+import { withAuthProtection } from "../../hoc/withAuthProtection";
 import { getExpanses } from "../../service/expanseService";
 import { generateExpanseInfo } from "../../utils/helpers";
 import { logOut } from "../../service/auth";
@@ -10,6 +12,7 @@ import "./expanse.css";
 const Expanse = () => {
   const [data, setData] = useState(() => getExpanses());
   const [editing, setEditing] = useState(null);
+  const history = useHistory();
 
   // useEffect(() => {
   //   const response = getExpanses();
@@ -50,6 +53,7 @@ const Expanse = () => {
 
   const onLogOutHandler = () => {
     logOut();
+    history.replace("/");
   };
 
   const renderInfoCard = () => {
@@ -85,7 +89,7 @@ const Expanse = () => {
         </button>
       </div>
 
-      <div className="col-8 shadow">
+      <div className="col-8 shadow pt-5">
         <AddExpanseForm onSubmit={onSubmit} editing={editing} />
       </div>
       <div className="col-4 p-3">{renderInfoCard()}</div>
@@ -100,4 +104,4 @@ const Expanse = () => {
   );
 };
 
-export default Expanse;
+export default withAuthProtection(Expanse);
