@@ -26,5 +26,4 @@ export const register = async (credentials) => {
 
 export const logOut = () => {
   removeValue(AUTH_TOKEN);
-  window.location.reload();
 };
