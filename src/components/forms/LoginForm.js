@@ -1,20 +1,26 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { login } from "../../service/auth";
 import { AUTH_TOKEN } from "../../service/auth.constants";
 import { setValue } from "../../service/localStorage";
+import { useUserContext } from "../../contexts/UserContext";
 
 export const LoginForm = ({ title, maxAttempts }) => {
   const { register, handleSubmit } = useForm();
   const history = useHistory();
+  const location = useLocation();
+  const { setLoggedIn } = useUserContext();
 
   const onSubmit = async (data) => {
     const result = await login(data);
     if (result) {
       setValue(AUTH_TOKEN, result.token);
-      history.replace("/expanses");
+      setLoggedIn(true);
+      const redirectPathname =
+        location.state !== "" ? location.state : "/expanses";
+      history.replace(redirectPathname);
     }
   };
 

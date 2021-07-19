@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
+
 import { AddExpanseForm } from "../../components/forms/AddExpanseForm";
 import { ExpanseList } from "../../components/lists/ExpanseList";
 import { withAuthProtection } from "../../hoc/withAuthProtection";
 import { getExpanses } from "../../service/expanseService";
 import { generateExpanseInfo } from "../../utils/helpers";
 import { logOut } from "../../service/auth";
+import { useUserContext } from "../../contexts/UserContext";
 
 import "./expanse.css";
 
@@ -13,6 +15,7 @@ const Expanse = () => {
   const [data, setData] = useState(() => getExpanses());
   const [editing, setEditing] = useState(null);
   const history = useHistory();
+  const { setLoggedIn } = useUserContext();
 
   // useEffect(() => {
   //   const response = getExpanses();
@@ -53,6 +56,7 @@ const Expanse = () => {
 
   const onLogOutHandler = () => {
     logOut();
+    setLoggedIn(false);
     history.replace("/");
   };
 
