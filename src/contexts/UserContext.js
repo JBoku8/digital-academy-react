@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
+import { AUTH_TOKEN } from "../service/auth.constants";
+import { checkValue } from "../service/localStorage";
 
 export const UserContext = React.createContext(null);
 
 UserContext.displayName = "UserContext";
 
 export const UserContextProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(() => {
+    return checkValue(AUTH_TOKEN);
+  });
 
   return (
     <UserContext.Provider

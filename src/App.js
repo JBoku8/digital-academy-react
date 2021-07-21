@@ -5,6 +5,7 @@ import Home from "./pages/home/Home";
 import { Layout } from "./components/Layout";
 import { UserContextProvider } from "./contexts/UserContext";
 import "./App.css";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -43,11 +44,13 @@ function App() {
           </Route>
 
           <Route path="/expanses">
-            <Suspense
-              fallback={<Loader message="Expanses Page is loading..." />}
-            >
-              <Expanse />
-            </Suspense>
+            <ThemeProvider>
+              <Suspense
+                fallback={<Loader message="Expanses Page is loading..." />}
+              >
+                <Expanse />
+              </Suspense>
+            </ThemeProvider>
           </Route>
 
           <Route path="/expanses-user">
@@ -59,7 +62,9 @@ function App() {
           </Route>
 
           <Route path="/" exact>
-            <Home />
+            <ThemeProvider>
+              <Home />
+            </ThemeProvider>
           </Route>
 
           {/* ! TODO CHECK  */}

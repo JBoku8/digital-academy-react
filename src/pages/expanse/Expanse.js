@@ -10,12 +10,14 @@ import { logOut } from "../../service/auth";
 import { useUserContext } from "../../contexts/UserContext";
 
 import "./expanse.css";
+import { useThemeContext } from "../../contexts/ThemeContext";
 
 const Expanse = () => {
   const [data, setData] = useState(() => getExpanses());
   const [editing, setEditing] = useState(null);
   const history = useHistory();
   const { setLoggedIn } = useUserContext();
+  const { theme } = useThemeContext();
 
   // useEffect(() => {
   //   const response = getExpanses();
@@ -74,7 +76,7 @@ const Expanse = () => {
   };
 
   return (
-    <div className="row">
+    <div className={`row bg-${theme}`}>
       <div className="col-12 p-3">
         <h2
           className="expanseTitle"
