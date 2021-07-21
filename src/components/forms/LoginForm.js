@@ -18,8 +18,7 @@ export const LoginForm = ({ title, maxAttempts }) => {
     if (result) {
       setValue(AUTH_TOKEN, result.token);
       setLoggedIn(true);
-      const redirectPathname =
-        location.state !== "" ? location.state : "/expanses";
+      const redirectPathname = !!location.state ? location.state : "/expanses";
       history.replace(redirectPathname);
     }
   };

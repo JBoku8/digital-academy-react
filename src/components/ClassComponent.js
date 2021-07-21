@@ -16,7 +16,7 @@ class ClassComponent extends React.Component {
     const { number } = this.state;
 
     return (
-      <div className="row">
+      <div className="row m-0">
         <h3>ClassComponent - {number}</h3>
         <button onClick={this.randomizeNumber} className="btn btn-primary">
           randomizeNumber action
